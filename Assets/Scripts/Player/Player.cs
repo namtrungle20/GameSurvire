@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public static Player instance; //doi tuong trien khai
+    public static Player player; //doi tuong trien khai
+    public static Player PlayerInstance
+    {
+        get { return player; }
+    }
     public Vector3 moveDir;
+    public Vector3 MoveDir
+    {
+        get { return moveDir; }
+    }
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -15,18 +23,20 @@ public class Player : MonoBehaviour
     public float PLayerHeart;
 
     private bool isImmune; // bien kiem soat trang thai mien dich
+    
     [SerializeField] private float immuneTime; // thoi gian mien dich
     [SerializeField] private float immunetyDuration; // thoi gian bat dau mien dich
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (player != null && player != this)
         {
+            Debug.LogError("There is more than one Player in the scene");
             Destroy(this);
         }
         else
         {
-            instance = this;
+            player = this;
         }
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -58,7 +68,7 @@ public class Player : MonoBehaviour
 
         moveDir = new Vector2(moveX, moveY).normalized;
 
-        if(immuneTime > 0)
+        if (immuneTime > 0)
         {
             immuneTime -= Time.deltaTime; // giam thoi gian mien dich
         }
@@ -71,7 +81,7 @@ public class Player : MonoBehaviour
     //FixedUpdate 
     void MovePlayer()
     {
-        rb.velocity = new Vector2(moveDir.x * moveSpeed, moveDir.y * moveSpeed);
+        rb.linearVelocity = new Vector3(moveDir.x * moveSpeed, moveDir.y * moveSpeed);
     }
     void CheckXoay()
     {
@@ -100,4 +110,5 @@ public class Player : MonoBehaviour
             }
         }
     }
+    
 }

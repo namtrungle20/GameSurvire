@@ -7,26 +7,22 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public static UIController Instance; // singleton instance
+    public static UIController instance; // singleton instance
+    public static UIController Instance { get => instance;}
     [SerializeField] private Slider PlayerHeartSlider; // slider for health
     public GameObject GameOverPanel; // game over panel
     public GameObject PausePanel; // pause panel
     public TMP_Text timerText; // timer text
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (instance != null)
+            Debug.LogError("có nhiều hơn một UIController trong scene");
+        instance = this; // set the singleton instance
     }
     public void UpdatePlayerHeartSlider(float currentHealth, float maxHealth)
     {
-        PlayerHeartSlider.maxValue = Player.instance.PlayerMaxHealth;
-        PlayerHeartSlider.value = Player.instance.PLayerHeart;
+        PlayerHeartSlider.maxValue = Player.player.PlayerMaxHealth;
+        PlayerHeartSlider.value = Player.player.PLayerHeart;
     }
     public void UpdateGameTime(float time)
     {

@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - PlayerBullet
   - Enemy
@@ -46,6 +46,9 @@ TagManager:
   - name: Player
     uniqueID: 424198623
     locked: 0
+  - name: Weapon
+    uniqueID: 2111029371
+    locked: 0
   - name: Object
     uniqueID: 1175480997
     locked: 0
@@ -61,3 +64,5 @@ TagManager:
   - name: UI
     uniqueID: 3839360835
     locked: 0
+  m_RenderingLayers:
+  - Default

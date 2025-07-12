@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player.instance.gameObject.activeSelf)
+        if (Player.player.gameObject.activeSelf)
         {
             waves[WaveNumber].spawnTimer += Time.deltaTime;
             if (waves[WaveNumber].spawnTimer >= waves[WaveNumber].spawnInterval)
