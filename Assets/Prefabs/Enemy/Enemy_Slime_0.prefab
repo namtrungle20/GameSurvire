@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1175480997
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1024555042, guid: d9449d24e39306f448c742b576861f1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -156,7 +156,9 @@ MonoBehaviour:
   rb: {fileID: 1206397005435691309}
   moveSpeed: 1
   damage: 1
-  health: 50
+  health: 12
+  exp: 1
+  pushTime: 0.2
   DestroyEffect: {fileID: 6509158621643664496, guid: 39a78059d588cc344af601cb6c25e845, type: 3}
 --- !u!70 &5706609919975648318
 CapsuleCollider2D:

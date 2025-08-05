@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public static UIController instance; // singleton instance
+    protected static UIController instance; // singleton instance
     public static UIController Instance { get => instance;}
     [SerializeField] private Slider PlayerHeartSlider; // slider for health
     public GameObject GameOverPanel; // game over panel

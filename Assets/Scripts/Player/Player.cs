@@ -21,9 +21,10 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float PlayerMaxHealth;
     public float PLayerHeart;
+    public int experience; // Kinh nghiệm của người chơi
 
     private bool isImmune; // bien kiem soat trang thai mien dich
-    
+
     [SerializeField] private float immuneTime; // thoi gian mien dich
     [SerializeField] private float immunetyDuration; // thoi gian bat dau mien dich
     // Start is called before the first frame update
@@ -106,9 +107,13 @@ public class Player : MonoBehaviour
             if (PLayerHeart <= 0)
             {
                 gameObject.SetActive(false);
-                GameManager.Instance.GameOver();
+                GameManager.instance.GameOver();
             }
         }
+    }
+    public void GetKinhNghiem(int getexp)
+    {
+        experience+= getexp; // Cộng kinh nghiệm cho người chơi
     }
     
 }

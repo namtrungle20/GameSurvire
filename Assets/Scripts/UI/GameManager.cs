@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; // singleton instance
+    protected static GameManager Instance; // singleton instance
+    public static GameManager instance { get => Instance; set => Instance = value; }
     public float gameTime; // game time
     public bool gameActive; // game active status
     void Awake()
