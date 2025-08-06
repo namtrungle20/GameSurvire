@@ -158,7 +158,7 @@ MonoBehaviour:
   damage: 1
   health: 12
   exp: 1
-  pushTime: 0.2
+  pushTime: 0.1
   DestroyEffect: {fileID: 6509158621643664496, guid: 39a78059d588cc344af601cb6c25e845, type: 3}
 --- !u!70 &5706609919975648318
 CapsuleCollider2D:

@@ -8,14 +8,14 @@ public class DamageNumber : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speed = Random.Range(1f, 1.5f); // Random speed for the damage number
+        speed = Random.Range(0.5f, 1.5f); // Random speed for the damage number
         Destroy(gameObject, 1f); // Destroy the damage number after 1 second
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.up * speed * Time.deltaTime; // Move the damage number upwards
+        transform.position += Vector3.up * Time.deltaTime * speed; // Move the damage number upwards
     }
     public void SetDamageValue(float value)
     {

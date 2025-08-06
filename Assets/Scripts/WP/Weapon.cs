@@ -15,15 +15,11 @@ public class Weapon : MonoBehaviour
     {
         // Lấy hướng di chuyển từ vũ khí khu vực
         playerShooter = GameObject.Find("PlayerShoot").GetComponent<PlayerShooter>();
-
+        enemiesInRange = new List<Enemy>(); // Khởi tạo danh sách kẻ thù trong phạm vi
         timer = playerShooter.duration; // Lấy thời gian tồn tại của vũ khí khu vực
         moveSpeed = playerShooter.speed; // Lấy tốc độ di chuyển từ vũ khí khu vực
     }
     void Update()
-    {
-        Move(); // Gọi hàm di chuyển
-    }
-    protected virtual void Move()
     {
         transform.position += transform.right * moveSpeed * Time.deltaTime; // Di chuyển vũ khí theo hướng hiện tại
         timer -= Time.deltaTime; // Giảm thời gian tồn tại
@@ -31,32 +27,33 @@ public class Weapon : MonoBehaviour
         {
             Destroy(gameObject); // Hủy vũ khí khi hết thời gian tồn tại
         }
-         CounterAttack(); // Gọi hàm tấn công
-    }
-    public void CounterAttack()
-    {
-        counter -= Time.deltaTime;
+         counter -= Time.deltaTime;
         if (counter <= 0)
         {
             counter = playerShooter.speed; // Thời gian giữa các lần tấn công
-            for(int i = 0; i < enemiesInRange.Count; i++) {
+            for (int i = 0; i < enemiesInRange.Count; i++)
+            {
                 enemiesInRange[i].TakeDamage(playerShooter.damage); // Gọi hàm TakeDamage của kẻ thù
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision) // Kiểm tra va chạm với kẻ thù
+    
+     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            enemiesInRange.Add(collision.GetComponent<Enemy>()); // Thêm kẻ thù vào danh sách
+            Enemy enemy = collision.GetComponent<Enemy>();
+            enemiesInRange.Add(enemy); // Xóa kẻ thù vào danh sách nếu chưa có
+            enemy.TakeDamage(playerShooter.damage); // Gọi hàm TakeDamage của kẻ thù
         }
     }
+   
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
-            enemiesInRange.Remove(collision.GetComponent<Enemy>()); // Xóa kẻ thù khỏi danh sách khi ra khỏi vùng
+            enemiesInRange.Remove(collision.GetComponent<Enemy>()); // Xóa kẻ thù vào danh sách nếu chưa có
         }
+
     }
 }

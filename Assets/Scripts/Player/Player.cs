@@ -22,11 +22,18 @@ public class Player : MonoBehaviour
     public float PlayerMaxHealth;
     public float PLayerHeart;
     public int experience; // Kinh nghiệm của người chơi
+    public int Level; // Cấp độ của người chơi
+    public int maxLevel; // Cấp độ tối đa của người chơi
+    
 
     private bool isImmune; // bien kiem soat trang thai mien dich
 
     [SerializeField] private float immuneTime; // thoi gian mien dich
     [SerializeField] private float immunetyDuration; // thoi gian bat dau mien dich
+
+
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,7 +55,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         PLayerHeart = PlayerMaxHealth;
-        UIController.Instance.UpdatePlayerHeartSlider(PLayerHeart, PlayerMaxHealth);
+        UIController.Instance.UpdatePlayerHeartSlider();
     }
 
     // Update is called once per frame
@@ -103,17 +110,17 @@ public class Player : MonoBehaviour
             immuneTime = immunetyDuration;
 
             PLayerHeart -= damage;
-            UIController.Instance.UpdatePlayerHeartSlider(PLayerHeart, PlayerMaxHealth);
+            UIController.Instance.UpdatePlayerHeartSlider();
             if (PLayerHeart <= 0)
             {
                 gameObject.SetActive(false);
-                GameManager.instance.GameOver();
+                GameManager.instance.GameOver(); // goi ham ket thuc tro choi
             }
         }
     }
     public void GetKinhNghiem(int getexp)
     {
-        experience+= getexp; // Cộng kinh nghiệm cho người chơi
+        experience += getexp; // Cộng kinh nghiệm cho người chơi
     }
     
 }

@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour
             Debug.LogError("có nhiều hơn một UIController trong scene");
         instance = this; // set the singleton instance
     }
-    public void UpdatePlayerHeartSlider(float currentHealth, float maxHealth)
+    public void UpdatePlayerHeartSlider()
     {
         PlayerHeartSlider.maxValue = Player.player.PlayerMaxHealth;
         PlayerHeartSlider.value = Player.player.PLayerHeart;
