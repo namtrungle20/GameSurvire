@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
         {
             Destroy(gameObject); // Hủy vũ khí khi hết thời gian tồn tại
         }
-         counter -= Time.deltaTime;
+        counter -= Time.deltaTime;
         if (counter <= 0)
         {
             counter = playerShooter.speed; // Thời gian giữa các lần tấn công
@@ -37,23 +37,29 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-    
-     private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            enemiesInRange.Add(enemy); // Xóa kẻ thù vào danh sách nếu chưa có
-            enemy.TakeDamage(playerShooter.damage); // Gọi hàm TakeDamage của kẻ thù
+            if (enemy != null && !enemiesInRange.Contains(enemy))
+            {
+                enemiesInRange.Add(enemy); // Xóa kẻ thù vào danh sách nếu chưa có
+                enemy.TakeDamage(playerShooter.damage); // Gọi hàm TakeDamage của kẻ thù
+            }
         }
     }
-   
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            enemiesInRange.Remove(collision.GetComponent<Enemy>()); // Xóa kẻ thù vào danh sách nếu chưa có
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemiesInRange.Remove(collision.GetComponent<Enemy>()); // Xóa kẻ thù vào danh sách nếu chưa có
+            }  
         }
-
     }
 }
