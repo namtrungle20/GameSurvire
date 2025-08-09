@@ -171,7 +171,7 @@ MonoBehaviour:
   rb: {fileID: 8587033432865688959}
   moveSpeed: 1
   damage: 1
-  health: 50
+  health: 2
   exp: 2
   pushTime: 0.1
   DestroyEffect: {fileID: 6509158621643664496, guid: 39a78059d588cc344af601cb6c25e845, type: 3}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9194021519740990688}
   - component: {fileID: 3302939913776799212}
   - component: {fileID: 3669013968758802124}
-  - component: {fileID: -862797058950404368}
+  - component: {fileID: 2680964461617778748}
   m_Layer: 0
   m_Name: Effects(FireBall)
   m_TagString: Weapon
@@ -176,7 +176,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-862797058950404368
+--- !u!114 &2680964461617778748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,10 +185,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6223888276903596400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43544526c0334a640ae7de9d23b87912, type: 3}
+  m_Script: {fileID: 11500000, guid: c9fe189b3c60b1741842b8274a1bbff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  playerShooter: {fileID: 0}
+  wpAttack: {fileID: 0}
   enemiesInRange: []
   timer: 0

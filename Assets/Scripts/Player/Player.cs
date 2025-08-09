@@ -5,11 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public static Player player; //doi tuong trien khai
-    public static Player PlayerInstance
-    {
-        get { return player; }
-    }
+    public static Player PlayerInstance;
     public Vector3 moveDir;
     public Vector3 MoveDir
     {
@@ -24,10 +20,10 @@ public class Player : MonoBehaviour
     public int experience; // Kinh nghiệm của người chơi
     public int Level; // Cấp độ của người chơi
     public int maxLevel; // Cấp độ tối đa của người chơi
-    
+    public List<int> playerLevels; // Danh sách cấp độ của người chơi
+    public Weapon activeWeapon;
 
     private bool isImmune; // bien kiem soat trang thai mien dich
-
     [SerializeField] private float immuneTime; // thoi gian mien dich
     [SerializeField] private float immunetyDuration; // thoi gian bat dau mien dich
 
@@ -37,14 +33,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (player != null && player != this)
+        if (PlayerInstance != null && PlayerInstance != this)
         {
             Debug.LogError("There is more than one Player in the scene");
             Destroy(this);
         }
         else
         {
-            player = this;
+            PlayerInstance = this;
         }
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -54,8 +50,13 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = playerLevels.Count; i < maxLevel; i++)
+        {
+            playerLevels.Add(Mathf.CeilToInt(playerLevels[playerLevels.Count - 1] * 1f + 5)); // Giả sử mỗi cấp độ cần 100 kinh nghiệm
+        }
         PLayerHeart = PlayerMaxHealth;
         UIController.Instance.UpdatePlayerHeartSlider();
+        UIController.Instance.UpdatePlayerExperieceSlider();
     }
 
     // Update is called once per frame
@@ -121,6 +122,18 @@ public class Player : MonoBehaviour
     public void GetKinhNghiem(int getexp)
     {
         experience += getexp; // Cộng kinh nghiệm cho người chơi
+        UIController.Instance.UpdatePlayerExperieceSlider();
+        if (experience >= playerLevels[Level - 1])
+        {
+            LevelUp();
+        }
     }
-    
+    public void LevelUp()
+    {
+        Level++;
+        experience = 0; // Đặt lại kinh nghiệm sau khi lên cấp
+        UIController.Instance.UpdatePlayerExperieceSlider();
+        UIController.Instance.levelUpButtons[0].ActivateButton(activeWeapon); // Cập nhật thông tin vũ khí trên giao diện
+        UIController.Instance.LevelUpPanelOpen(); // Mở giao diện lên cấp
+    }
 }

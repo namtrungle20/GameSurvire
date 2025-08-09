@@ -1,18 +1,10 @@
-using System.Threading;
-using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerShooter : MonoBehaviour
+public class WeaponAttack : Weapon
 {
 
     [SerializeField] protected GameObject prefab;
     private float spawnCounter; // thời gian phản hồi
-    public float cooldown;
-    public float duration;
-    public float damage; // sát thương của vũ khí
-    public float range;
-    public float speed; // tốc độ của vũ khí
-
 
     void Start()
     {
@@ -29,7 +21,7 @@ public class PlayerShooter : MonoBehaviour
         spawnCounter -= Time.deltaTime;
         if (spawnCounter <= 0)
         {
-            spawnCounter = cooldown; // thời gian nạp lại
+            spawnCounter = stats[weaponLevels].cooldown; // thời gian nạp lại
             Instantiate(prefab, transform.position, transform.rotation); // tạo vũ khí mới
         }
     }

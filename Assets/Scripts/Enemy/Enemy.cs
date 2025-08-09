@@ -36,9 +36,9 @@ public class Enemy : MonoBehaviour
     }
     protected virtual void MovingEnemy()
     {
-        if (Player.player.gameObject.activeSelf)
+        if (Player.PlayerInstance.gameObject.activeSelf)
         {
-            if (Player.player.transform.position.x < transform.position.x)
+            if (Player.PlayerInstance.transform.position.x < transform.position.x)
             {
                 sr.flipX = true;
             }
@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
                     moveSpeed = Mathf.Abs(moveSpeed); // Khôi phục tốc độ di chuyển
                 }
             }
-            moveDirEnemy = (Player.player.transform.position - transform.position).normalized;
+            moveDirEnemy = (Player.PlayerInstance.transform.position - transform.position).normalized;
             rb.linearVelocity = new Vector2(moveDirEnemy.x * moveSpeed, moveDirEnemy.y * moveSpeed); // Di chuyển về hướng người chơi
         }
         else
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Player.player.TakeDamage(damage);
+            Player.PlayerInstance.TakeDamage(damage);
         }
     }
     public void TakeDamage(float damage)
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
             Instantiate(DestroyEffect, transform.position, transform.rotation);
-            Player.player.GetKinhNghiem(exp); // Thêm kinh nghiệm cho người chơi
+            Player.PlayerInstance.GetKinhNghiem(exp); // Thêm kinh nghiệm cho người chơi
         }
     }
     
