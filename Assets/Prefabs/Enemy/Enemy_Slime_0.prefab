@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2139507515985722593}
   - component: {fileID: 7416790294109041372}
   - component: {fileID: 1206397005435691309}
-  - component: {fileID: 5488679437265147477}
   - component: {fileID: 5706609919975648318}
+  - component: {fileID: 2910400488423544834}
   m_Layer: 7
   m_Name: Enemy_Slime_0
   m_TagString: Enemy
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1175480997
-  m_SortingLayer: 3
+  m_SortingLayerID: -1553016085
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -1024555042, guid: d9449d24e39306f448c742b576861f1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -140,26 +140,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5488679437265147477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164401876963009245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dbcdcd789fc2a945ad9660b3929d904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sr: {fileID: 2139507515985722593}
-  rb: {fileID: 1206397005435691309}
-  moveSpeed: 1
-  damage: 1
-  health: 1
-  exp: 1
-  pushTime: 0.1
-  DestroyEffect: {fileID: 6509158621643664496, guid: 39a78059d588cc344af601cb6c25e845, type: 3}
 --- !u!70 &5706609919975648318
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -197,3 +177,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.000001264742, y: -0.6094237}
   m_Size: {x: 1.354654, y: 0.93383825}
   m_Direction: 1
+--- !u!114 &2910400488423544834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164401876963009245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1931c124b064845a6f8e0fbb207906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1206397005435691309}
+  moveSpeed: 1
+  damage: 1
+  health: 5
+  hitWaitTime: 1
+  knockBackTime: 0.5
