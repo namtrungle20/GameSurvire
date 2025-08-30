@@ -3,22 +3,30 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public int weaponLevels; // Cấp độ của vũ khí
-    public List<WeaponStats> stats; // Danh sách thông số vũ khí
-    public Sprite weaponImage; // Biểu tượng vũ khí
-    public void levelUp()
+    public List<WeaponStats> stats;
+    public int weaponLevel;
+    public Sprite icon;
+
+    [HideInInspector]
+    public bool statsUpdated; // Biến để kiểm tra xem các chỉ số đã được cập nhật hay chưa
+    public void LevelUp()
     {
-        weaponLevels++; // Cập nhật cấp độ vũ khí theo cấp độ người chơi
+        if (weaponLevel < stats.Count - 1)
+        {
+            weaponLevel++;
+            statsUpdated = true;
+            if (weaponLevel >= stats.Count - 1)
+            {
+                PlayerController.Instance.fullyLevelWeapons.Add(this);
+                PlayerController.Instance.assignedWeapons.Remove(this);
+            }
+        }
     }
 
-    [System.Serializable]
-    public class WeaponStats
-    {
-        public float cooldown; // thời gian nạp lại
-        public float duration; // thời gian tồn tại của vũ khí
-        public float damage; // sát thương của vũ khí
-        public float range;
-        public float speed; // tốc độ của vũ khí
-        public string information; // thông tin về vũ khí
-    }
+}
+[System.Serializable]
+public class WeaponStats
+{
+    public float speed, damage, range, timeBetweenAttacks, amount, duration; //toc do, sat thuong, tam tan con, thoi gian giua cac don danh, so luong, khoang thoi gian;
+    public string upgradeText;
 }

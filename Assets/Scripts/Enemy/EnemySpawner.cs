@@ -11,24 +11,48 @@ public class EnemySpawner : MonoBehaviour
     private Transform target; // đối tượng người chơi
     private float desman; // khoảng cách để hủy enemy
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // danh sách các enemy đã được tạo
+    
     public int checkPerFrame; // số lượng enemy kiểm tra mỗi khung hình
     private int enemyToCheck; // số lượng enemy cần kiểm tra trong mỗi khung hình
+    public List<WaveSpawner> waveSpawners; // danh sách các sóng enemy
+    private int statusWave; // trạng thái của sóng enemy
+    private float waveCounter; // bộ đếm để theo dõi thời gian giữa các sóng
 
     void Start()
     {
         spawnConter = timeToSpawn; // khởi tạo bộ đếm thời gian
         target = PlayerHeathController.Instance.transform; // lấy đối tượng người chơi
         desman = Vector3.Distance(transform.position, MaxPos.position) + 4f; // tính khoảng cách để hủy enemy
+        statusWave = -1; // khởi tạo chỉ số sóng hiện tại
+        GoToNextWave();
     }
 
     void Update()
     {
-        spawnConter -= Time.deltaTime; // giảm bộ đếm thời gian
-        if (spawnConter <= 0f)
+        // spawnConter -= Time.deltaTime; // giảm bộ đếm thời gian
+        // if (spawnConter <= 0f)
+        // {
+        //     spawnConter = timeToSpawn; // đặt lại bộ đếm thời gian
+        //     GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(), transform.rotation); // tạo enemy mới tại vị trí ngẫu nhiên
+        //     spawnedEnemies.Add(newEnemy); // thêm enemy mới vào danh sách
+        // }
+        if (target.gameObject.activeSelf)
         {
-            spawnConter = timeToSpawn; // đặt lại bộ đếm thời gian
-            GameObject newEnemy = Instantiate(enemyPrefab, SelectSpawnPoint(), transform.rotation); // tạo enemy mới tại vị trí ngẫu nhiên
-            spawnedEnemies.Add(newEnemy); // thêm enemy mới vào danh sách
+            if (statusWave < waveSpawners.Count)
+            {
+                waveCounter -= Time.deltaTime; // giảm bộ đếm thời gian giữa các sóng
+                if (waveCounter <= 0)
+                {
+                    GoToNextWave(); // chuyển sang sóng tiếp theo
+                }
+                spawnConter -= Time.deltaTime; // giảm bộ đếm thời gian giữa các sóng
+                if (spawnConter <= 0f)
+                {
+                    spawnConter = waveSpawners[statusWave].timeBetweenWaves; // đặt lại bộ đếm thời gian
+                    GameObject newEnemy = Instantiate(waveSpawners[statusWave].enemySpawnerPrefab, SelectSpawnPoint(), transform.rotation); // tạo enemy mới tại vị trí ngẫu nhiên
+                    spawnedEnemies.Add(newEnemy); // thêm enemy mới vào danh sách
+                }
+            }
         }
         transform.position = target.position; // cập nhật vị trí của EnemySpawner theo vị trí người chơi
         int checkTarget = enemyToCheck + checkPerFrame; // tính số lượng enemy cần kiểm tra trong mỗi khung hình
@@ -62,12 +86,19 @@ public class EnemySpawner : MonoBehaviour
                 checkTarget = 0; // đặt lại số lượng enemy cần kiểm tra
             }
         }
+        
     }
 
-    // protected void CheckEnemy()
-    // {
-        
-    // }
+    public void GoToNextWave()
+    {
+        statusWave++; // tăng chỉ số của sóng hiện tại
+        if (statusWave >= waveSpawners.Count)
+        {
+            statusWave = waveSpawners.Count - 1; // đảm bảo không vượt quá số lượng sóng
+        }
+        waveCounter = waveSpawners[statusWave].maxWaves; // đặt lại bộ đếm thời gian giữa các sóng
+        spawnConter = waveSpawners[statusWave].timeBetweenWaves; // đặt lại bộ đếm thời gian giữa các sóng
+    }
     public Vector3 SelectSpawnPoint()
     {
         Vector3 spawnPoint = Vector3.zero; // khởi tạo điểm tạo enemy
@@ -99,4 +130,11 @@ public class EnemySpawner : MonoBehaviour
         }
         return spawnPoint; // trả về điểm tạo enemy
     }
+}
+[System.Serializable]
+public class WaveSpawner
+{
+    public GameObject enemySpawnerPrefab; // prefab của EnemySpawner
+    public float maxWaves; // số lượng sóng tối đa
+    public float timeBetweenWaves; // thời gian giữa các sóng
 }

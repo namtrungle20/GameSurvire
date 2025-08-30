@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4570040418310176733}
   - component: {fileID: 8587033432865688959}
   - component: {fileID: 2248314995067337343}
-  - component: {fileID: 6701700525736341748}
   - component: {fileID: 8706845746751265972}
+  - component: {fileID: 1565383054218252779}
   m_Layer: 7
   m_Name: Enemy_Zombies
   m_TagString: Enemy
@@ -155,26 +155,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.028516531, y: -0.0025924444}
   m_Size: {x: 0.38046694, y: 0.61967444}
   m_Direction: 0
---- !u!114 &6701700525736341748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5943120464992899148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dbcdcd789fc2a945ad9660b3929d904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sr: {fileID: 4570040418310176733}
-  rb: {fileID: 8587033432865688959}
-  moveSpeed: 1
-  damage: 1
-  health: 2
-  exp: 2
-  pushTime: 0.1
-  DestroyEffect: {fileID: 6509158621643664496, guid: 39a78059d588cc344af601cb6c25e845, type: 3}
 --- !u!95 &8706845746751265972
 Animator:
   serializedVersion: 7
@@ -197,3 +177,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1565383054218252779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943120464992899148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1931c124b064845a6f8e0fbb207906, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 8587033432865688959}
+  moveSpeed: 1
+  damage: 2
+  health: 3
+  exp: 1
+  hitWaitTime: 1
+  knockBackTime: 0.5

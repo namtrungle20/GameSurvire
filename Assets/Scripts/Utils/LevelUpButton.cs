@@ -1,27 +1,48 @@
-using TMPro;
+
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelUpButton : MonoBehaviour
 {
     public TMP_Text weaponName;
     public TMP_Text weaponInformation;
     public Image weaponIcon;
-    private Weapon getWeapon; // Vũ khí liên kết với nút này
-
+    private Weapon assignedWeapon; //Vũ khí được chỉ định
 
     public void ActivateButton(Weapon weapon)
     {
-        weaponName.text = weapon.name;
-        weaponInformation.text = weapon.stats[weapon.weaponLevels].information;
-        weaponIcon.sprite = weapon.weaponImage;
+        if (weapon.gameObject.activeSelf == true)
+        {
+            weaponName.text = weapon.name + "\n" + "Level " + weapon.weaponLevel;
+            weaponInformation.text = weapon.stats[weapon.weaponLevel].upgradeText;
+            weaponIcon.sprite = weapon.icon;
+        }
+        else
+        {
+            weaponInformation.text = "Unlock " + weapon.name;
+            weaponIcon.sprite = weapon.icon;
+            weaponName.text = weapon.name;
+        }
 
-        getWeapon = weapon; // Lưu vũ khí liên kết với nút này
+        assignedWeapon = weapon;
     }
 
     public void SelectUpgrade()
     {
-        getWeapon.levelUp(); // Tăng cấp vũ khí
-        // UIController.Instance.LevelUpPanelClose(); // Đóng bảng nâng cấp
+        if (assignedWeapon != null)
+        {
+            if (assignedWeapon.gameObject.activeSelf == true)
+            {
+                assignedWeapon.LevelUp();
+            }
+            else
+            {
+                PlayerController.Instance.AddWeapon(assignedWeapon);
+            }
+            
+            UIController.Instance.levelUpPanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
     }
 }
