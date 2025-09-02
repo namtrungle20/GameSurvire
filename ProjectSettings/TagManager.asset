@@ -2,10 +2,10 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
-  - PlayerBullet
   - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -14,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - Enemies
+  - Enemy
   - 
   - 
   - 
@@ -40,8 +40,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Backgroud
+    uniqueID: 4156683165
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Item
+    uniqueID: 1910461735
+    locked: 0
+  - name: Enemy
+    uniqueID: 2741951211
+    locked: 0
+  - name: Weapon
+    uniqueID: 2111029371
     locked: 0
   - name: Player
     uniqueID: 424198623
@@ -49,15 +61,8 @@ TagManager:
   - name: Object
     uniqueID: 1175480997
     locked: 0
-  - name: PlayerBullet
-    uniqueID: 3607737719
-    locked: 0
-  - name: Gun
-    uniqueID: 2120391201
-    locked: 0
-  - name: Foreground
-    uniqueID: 4156683165
-    locked: 0
   - name: UI
     uniqueID: 3839360835
     locked: 0
+  m_RenderingLayers:
+  - Default
