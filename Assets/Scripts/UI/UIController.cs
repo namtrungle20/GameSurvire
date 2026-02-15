@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,31 +9,33 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static UIController Instance; // singleton instance
-    [SerializeField] private Slider PlayerHeartSlider; // slider for health
-    public GameObject GameOverPanel; // game over panel
-    public GameObject PausePanel; // pause panel
-    public TMP_Text timerText; // timer text
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        Instance = this; // set the singleton instance
     }
-    public void UpdatePlayerHeartSlider(float currentHealth, float maxHealth)
-    {
-        PlayerHeartSlider.maxValue = Player.instance.PlayerMaxHealth;
-        PlayerHeartSlider.value = Player.instance.PLayerHeart;
-    }
-    public void UpdateGameTime(float time)
-    {
-        float min = Mathf.FloorToInt(time / 60); // calculate minutes
-        float sec = Mathf.FloorToInt(time % 60); // calculate seconds
+    public Slider expLvSlider;
+    public TMP_Text expLvText;
+    public LevelUpButton[] levelUpButtons;
+    public GameObject levelUpPanel;
 
-        timerText.text = min + ":"+sec.ToString("00"); // update game time
+    void Start()
+    {
+
+    }
+    void Update()
+    {
+
+    }
+
+    public void UpdateExperience(int statusExp, int levelExp, int statusLevel)
+    {
+        expLvSlider.maxValue = levelExp;
+        expLvSlider.value = statusExp;
+        expLvText.text = "Level " + statusLevel;
+    }
+    public void SkipLevelUp()
+    {
+        levelUpPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
