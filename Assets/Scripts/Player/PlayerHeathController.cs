@@ -11,6 +11,7 @@ public class PlayerHeathController : MonoBehaviour
 
     public float health, maxHealth;
     public Slider healthSlider; // Thanh trượt hiển thị sức khỏe
+    public GameObject deathEffect; // Hiệu ứng khi người chơi chết
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +32,8 @@ public class PlayerHeathController : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false); // Gọi hàm Die nếu sức khỏe giảm xuống 0 hoặc thấp hơn
+            LevelManager.Instance.EndLevel();
+            Instantiate(deathEffect, transform.position, transform.rotation); // Tạo hiệu ứng chết tại vị trí người chơi
         }
         healthSlider.value = health; // Cập nhật thanh trượt sức khỏe
     }

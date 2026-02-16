@@ -9,11 +9,14 @@ public class EnemyController : MonoBehaviour
     public float damage;
     public float health;
     public int exp;
+    public int coin = 1;
+    public float coinDropChance = .7f; // Xác suất rơi xu 70%
 
     public float hitWaitTime; // Thời gian chờ giữa các lần tấn công
     private float hitCounter;
     public float knockBackTime; // Thời gian đẩy lùi sau khi bị tấn công
     private float knockBackCounter;
+    
 
     void Awake()
     {
@@ -35,13 +38,19 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void MovingEnemy()
     {
-        KnockBackEnemy(); // Kiểm tra và xử lý đẩy lùi kẻ thù
-        rb.linearVelocity = (target.position - transform.position).normalized * moveSpeed; // Tính toán hướng di chuyển về phía người chơi
-        if (hitCounter > 0f)
+        if (PlayerController.Instance.gameObject.activeSelf == true)
         {
-            hitCounter -= Time.deltaTime; // Giảm bộ đếm thời gian
+            KnockBackEnemy(); // Kiểm tra và xử lý đẩy lùi kẻ thù
+            rb.linearVelocity = (target.position - transform.position).normalized * moveSpeed; // Tính toán hướng di chuyển về phía người chơi
+            if (hitCounter > 0f)
+            {
+                hitCounter -= Time.deltaTime; // Giảm bộ đếm thời gian
+            }
         }
-        
+        else
+        {
+            rb.linearVelocity = Vector2.zero; // Dừng di chuyển nếu không tìm thấy người chơi
+        }
     }
     protected virtual void KnockBackEnemy()
     {
@@ -72,9 +81,16 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject); // Hủy kẻ thù nếu sức khỏe giảm xuống 0 hoặc thấp hơn
+
             ExperienceLevelController.instance.SpawnExp(transform.position, exp); // Hiện thị exp item
+
+            if (Random.value <= coinDropChance)
+            {
+                CoinCotroller.Instance.DropCoin(transform.position, coin); // Rơi xu nếu xác suất
+            }
         }
-         DamageNumberController.Instance.KhoiTaoSoSatThuong(getDamage, transform.position); // Hiển thị số sát thương khi kẻ thù bị tiêu diệt
+        
+        DamageNumberController.Instance.KhoiTaoSoSatThuong(getDamage, transform.position); // Hiển thị số sát thương khi kẻ thù bị tiêu diệt
     }
     public void TakeDamage(float getDamage, bool shouldKnockBack)
     {

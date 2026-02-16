@@ -30,7 +30,7 @@ public class EnemyDamager : MonoBehaviour
             if (transform.localScale.x == 0f)
             {
                 Destroy(gameObject); // Hủy đối tượng nếu kích thước hiện tại là 0
-                if (destroyWP == true)
+                if (destroyWP == true) // Kiểm tra nếu destroyWP là true
                 {
                     Destroy(transform.parent.gameObject); // Hủy đối tượng cha nếu destroyWP là true
                 }
@@ -65,7 +65,7 @@ public class EnemyDamager : MonoBehaviour
             if (collision.CompareTag("Enemy")) // Kiểm tra nếu va chạm với người chơi
             {
                 enemy.TakeDamage(damage, shouldKnockBack); // Gọi hàm TakeDamage của EnemyController khi kẻ thù va chạm với người chơi
-                if (destroyOnHit == true)
+                if (destroyOnHit == true) // Kiểm tra nếu destroyOnHit là true
                 {
                     Destroy(gameObject); // Hủy đối tượng nếu destroyOnHit là true
                 }
@@ -82,7 +82,7 @@ public class EnemyDamager : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         EnemyController enemy = collision.GetComponent<EnemyController>();
-        if (damageOverTime == true)
+        if (damageOverTime == true) // Kiểm tra nếu sát thương theo thời gian được bật
         {
             if (collision.CompareTag("Enemy"))
             {
